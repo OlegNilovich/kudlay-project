@@ -1,5 +1,7 @@
 <?php
 
+namespace myfrm;
+
 final class Validator
 {
     protected $errors = [];

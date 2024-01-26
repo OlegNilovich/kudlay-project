@@ -1,5 +1,11 @@
 <?php
 
+namespace myfrm;
+
+use PDO;
+use PDOStatement;
+use PDOException;
+
 final class Db
 {   
     private $connection;

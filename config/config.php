@@ -3,7 +3,7 @@
 // Константы путей
 define('ROOT', dirname(__DIR__));
 define('APP', ROOT . '/app');
-define('CORE', ROOT . '/core');
+define('CORE', ROOT . '/vendor/myfrm/core');
 define('CONFIG', ROOT . '/config');
 define('WWW', ROOT . '/public');
 define('VIEWS', APP . '/views');

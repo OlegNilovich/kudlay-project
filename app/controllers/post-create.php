@@ -1,6 +1,6 @@
 <?php
 
-require_once CORE . '/classes/Validator.php';
+use myfrm\Validator;
 
 /**
  * @var Db $db
@@ -26,18 +26,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($validation->hasErrors()) {
         var_dump($validation->getErrors());
     } else {
-        echo 'Success';
+        echo 'Валидация прошла успешно' . '<br>';
     }
 
-    die; // ВРЕМЕННАЯ ОСТАНОВКА СКРИПТА ПЕРЕД ЗАПИСЬЮ ДАННЫХ В БАЗУ
+    // die; // ВРЕМЕННАЯ ОСТАНОВКА СКРИПТА ПЕРЕД ЗАПИСЬЮ ДАННЫХ В БАЗУ
 
     if (empty($errors)) {
-        if($db->query("INSERT INTO posts (`title`, `excerpt`, `content`) VALUES (:title, :excerpt, :content)", $validation)) {
-            echo "Success";
+
+        $result = $db->query("INSERT INTO posts (`title`, `excerpt`, `content`) VALUES (:title, :excerpt, :content)", $data);
+
+        if($result) {
+            echo "Успешная запись в базу данных";
         } else {
-            echo "DB Error";
+            echo "Проблема записи в базу данных, проверьте код запроса";
         }
-        // redirect('/posts/create');
+
+        // redirect('/');
     }
 }
 
