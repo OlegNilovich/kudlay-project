@@ -10,4 +10,3 @@ $db = Db::getInstance()->getConnection($db_config);
 
 require_once CORE . '/router.php';
 
-// Hello Again
