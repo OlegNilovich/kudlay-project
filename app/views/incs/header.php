@@ -46,3 +46,5 @@
             </div>
          </nav>
       </header>
+
+      <?php get_alerts(); ?>

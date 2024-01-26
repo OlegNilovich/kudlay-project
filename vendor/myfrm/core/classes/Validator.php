@@ -4,19 +4,25 @@ namespace myfrm;
 
 final class Validator
 {
+    // Список разрешенных валидаторов. Если мы хотим добавить новый валидатор
+    // Создаем его метод и добавляем название метода в список $rules_list
+    protected $rules_list = ['required', 'email', 'min', 'max', 'match'];
+
     protected $errors = [];
-    protected $rules_list = ['required', 'email', 'min', 'max'];
+    protected $data_items;
     protected $messages = [
         'required' => 'The :fieldname: field is required',
-        'email' => 'Not valid email',
+        'match' => 'The :fieldname: field must match :rulevalue: field',
         'min' => 'The :fieldname: field must be a minimum :rulevalue: characters',
         'max' => 'The :fieldname: field must be a maximum :rulevalue: characters',
+        'email' => 'Not valid email',
     ];
 
     public function validate($data = [], $rules = [])
     {
+        $this->data_items = $data;
         foreach ($data as $fieldname => $value) {
-            if (in_array($fieldname, array_keys($rules))) {
+            if (isset($rules[$fieldname])) {
                 $this->check([
                     'fieldname' => $fieldname,
                     'value' => $value,
@@ -60,6 +66,19 @@ final class Validator
         return !empty($this->errors);
     }
 
+    public function listErrors($fieldname)
+    {
+        $output = '';
+        if (isset($this->errors[$fieldname])) {
+            $output .= "<div class='invalid-feedback d-block'><ul class='list-unstyled'>";
+            foreach ($this->errors[$fieldname] as $error) {
+                $output .= "<li>{$error}</li>";
+            }
+            $output .= "</ul></div>";
+        }
+        return $output;
+    }
+
     protected function required($value, $rule_value)
     {
         return !empty(trim($value));
@@ -78,5 +97,10 @@ final class Validator
     protected function email($value, $rule_value)
     {
         return filter_var($value, FILTER_VALIDATE_EMAIL);
+    }
+
+    protected function match($value, $rule_value)
+    {
+        return $value === $this->data_items[$rule_value];
     }
 }

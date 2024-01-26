@@ -41,24 +41,28 @@ function oldField($fieldname)
     return isset($_POST[$fieldname]) ? htmlspecialchars($_POST[$fieldname], ENT_QUOTES) : '';
 }
 
-function showError($errors, $fieldName)
-{
-    if (isset($errors[$fieldName])) {
-        echo '<div class="invalid-feedback d-block">';
-        echo $errors[$fieldName];
-        echo '</div>';
-    }
-}
-
 function redirect($url = '')
 {
     if ($url) {
         $redirect = $url;
     } else {
-        $redirect = isset($_SERVER['HTTP_REFERER']) ? 
-        $_SERVER['HTTP_REFERER'] :
-        PATH;
+        $redirect = isset($_SERVER['HTTP_REFERER']) ?
+            $_SERVER['HTTP_REFERER'] :
+            PATH;
     }
     header("Location: {$redirect}");
     exit;
+}
+
+function get_alerts()
+{
+    if (!empty($_SESSION['success'])) {
+        require_once VIEWS . '/incs/alert_success.php';
+        unset($_SESSION['success']);
+    }
+
+    if (!empty($_SESSION['error'])) {
+        require_once VIEWS . '/incs/alert_error.php';
+        unset($_SESSION['error']);
+    }
 }
