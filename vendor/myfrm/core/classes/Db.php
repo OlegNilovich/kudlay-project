@@ -7,12 +7,14 @@ use PDOStatement;
 use PDOException;
 
 final class Db
-{   
+{
     private $connection;
     private PDOStatement $stmt;
     private static $instance = null;
 
-    private function __construct() { }
+    private function __construct()
+    {
+    }
 
     public static function getInstance()
     {
@@ -34,8 +36,8 @@ final class Db
         }
     }
 
-    public function query ($query, $params = []) 
-    {   
+    public function query($query, $params = [])
+    {
         try {
             $this->stmt = $this->connection->prepare($query);
             $this->stmt->execute($params);
@@ -62,5 +64,10 @@ final class Db
             abort();
         }
         return $res;
+    }
+
+    public function rowCount()
+    {
+        return $this->stmt->rowCount();
     }
 }

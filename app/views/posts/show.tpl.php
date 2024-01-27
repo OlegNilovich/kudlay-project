@@ -9,8 +9,16 @@
 
          <!-- Content -->
          <div class="col-md-12">
+
             <h1> <?= h($post['title']) ?> </h1>
             <?= $post['content'] ?>
+
+            <form action="/posts" method="POST">
+               <input type="hidden" name="_method" value="DELETE">
+               <input type="hidden" name="id" value="<?= $post['id'] ?>">
+               <button type="submit" class="btn btn-link">Delete</button>
+            </form>
+
          </div>
          <!-- End-Content -->
 
