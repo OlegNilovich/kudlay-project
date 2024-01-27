@@ -1,12 +1,12 @@
-<?php // Маршрутизатор
+<?php // Старый маршрутизатор
 
 require_once CONFIG . '/routes.php';
 
-$requestPath = trim(parse_url($_SERVER['REQUEST_URI'])['path'], '/');
+$uri = trim(parse_url($_SERVER['REQUEST_URI'])['path'], '/');
 
-if (array_key_exists($requestPath, $routes)) {
-    
-    $controllerPath = CONTROLLERS . "/{$routes[$requestPath]}";
+if (array_key_exists($uri, $routes)) {
+
+    $controllerPath = CONTROLLERS . "/{$routes[$uri]}";
 
     if (file_exists($controllerPath)) {
         require $controllerPath;
@@ -16,4 +16,3 @@ if (array_key_exists($requestPath, $routes)) {
 } else {
     abort();
 }
-

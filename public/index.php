@@ -1,6 +1,7 @@
 <?php // Фронт контроллер
 
 use myfrm\Db;
+use myfrm\Router;
 
 session_start();
 
@@ -13,4 +14,8 @@ require_once CORE . '/funcs.php';
 $db_config = require CONFIG . '/db.php';
 $db = Db::getInstance()->getConnection($db_config);
 
-require_once CORE . '/router.php';
+$router = new Router();
+require CONFIG . '/routes.php';
+$router->match();
+
+// require_once CORE . '/router.php';

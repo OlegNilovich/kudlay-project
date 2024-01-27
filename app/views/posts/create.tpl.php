@@ -19,7 +19,7 @@ require VIEWS . '/incs/header.php'
 
             <h1> New Post </h1>
 
-            <form action="" method="POST">
+            <form action="/posts" method="POST">
 
                <div class="mb-3">
                   <label for="title" class="form-label">Заголовок</label>
