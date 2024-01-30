@@ -2,13 +2,7 @@
 
 use myfrm\Validator;
 
-global $db;
-/**
- * @var \myfrm\Db $db
- */
-
-$errors = [];
-$data = $_POST;
+$db = \myfrm\App::get(\myfrm\Db::class);
 
 $fillable = ['title', 'excerpt', 'content'];
 $data = load($data, $fillable);
@@ -35,7 +29,7 @@ $validationRules = [
 $validator = new Validator();
 $validation = $validator->validate($data, $validationRules);
 
-// die; // ОСТАНОВКА СКРИПТА ПЕРЕД ЗАПИСЬЮ В БАЗУ ДАННЫХ
+// die(__DIR__); // ОСТАНОВКА СКРИПТА ПЕРЕД ЗАПИСЬЮ В БАЗУ ДАННЫХ
 
 // Запись в базу данных
 if (!$validation->hasErrors()) {
